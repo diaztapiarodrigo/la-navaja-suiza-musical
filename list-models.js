@@ -1,5 +1,5 @@
 const { GoogleGenAI } = require("@google/genai");
-const apiKey = "AIzaSyAxg9pvy8AsYX2Ojh9jrc159vZ8TtjbFLM";
+const apiKey = process.env.GCP_TELEGRAM_API_KEY || "AIzaSyAENjC80ga51V8ohwhRaK48fSjJ2Y88Gg4";
 const ai = new GoogleGenAI({ apiKey: apiKey });
 
 async function run() {

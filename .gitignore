@@ -5,3 +5,6 @@ Easy-Wav2Lip/
 Ovi/
 *.log
 lipsync_test_log.txt
+
+*_log.txt
+*.log

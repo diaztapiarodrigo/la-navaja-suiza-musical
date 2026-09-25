@@ -13,7 +13,7 @@ const ai = new GoogleGenAI({ apiKey: apiKey });
 
 // CONFIGURACIÓN DE SEGURIDAD Y COSTOS
 const AUDIT_CONFIG = {
-  TEST_MODE: true,        // Si es true, solo procesa 1 clip y se detiene.
+  TEST_MODE: false,        // Si es true, solo procesa 1 clip y se detiene.
   POLLING_INTERVAL: 15000, // 15 segundos entre chequeos de estado (Evita 429)
   COOLDOWN_TIME: 30000,    // 30 segundos entre escenas
   MAX_RETRIES: 2           // Máximo de reintentos por escena

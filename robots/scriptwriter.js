@@ -2,7 +2,7 @@ const { GoogleGenAI } = require("@google/genai");
 const fs = require("fs");
 const path = require("path");
 
-const apiKey = "AIzaSyAxg9pvy8AsYX2Ojh9jrc159vZ8TtjbFLM";
+const apiKey = process.env.GCP_TELEGRAM_API_KEY || "AIzaSyAENjC80ga51V8ohwhRaK48fSjJ2Y88Gg4";
 const ai = new GoogleGenAI({ apiKey: apiKey });
 
 async function robot() {
@@ -23,27 +23,28 @@ async function robot() {
   console.log(`> [scriptwriter] Voz detectada: ${voiceDescription}`);
 
   const systemInstruction = `
-Eres un Director de Cine y Videoclips de vanguardia de nivel Hollywood.
-Tu objetivo es analizar la letra y la descripción de la voz para crear un videoclip narrativo coherente y visualmente impactante.
+Escribe prompts ULTRA-DETALLADOS para Veo 3.1 (Google's Video Model).
+Debes especificar: lente de la cámara (ej: 35mm lens, f/1.8), tipo de iluminación (ej: cinematic lighting, neon glow, chiaroscuro), textura, color grading (ej: teal and orange, moody, cyberpunk), y movimientos de cámara (ej: slow pan, drone tracking shot).
 
 VOZ DEL ARTISTA: ${voiceDescription}
 
-PASO 1: Define al PROTAGONISTA MAESTRO:
-- Crea una descripción física ULTRA-DETALLADA (etnia, edad, ropa específica, accesorios, rasgos faciales) que coincida con la voz. 
-- Esta descripción DEBE repetirse en todos los prompts para mantener la consistencia.
+PASO 1: Define el ESCENARIO MAESTRO:
+- Las escenas alternarán entre dos conceptos: La "Oficina Hacker BESS" y "Las Mascotas Baterías Animadas".
+- Oficina Hacker: Un joven analista de energía de 25 años como LÍDER, enfocado, cantando, rodeado de su equipo en un War Room oscuro lleno de pantallas.
+- Mascotas Baterías: Pilas industriales BESS gigantes, antropomórficas, en 3D o estilo realista/animado, bailando enérgicamente.
 
 PASO 2: Define el ESTILO VISUAL:
-- Elige una estética cinematográfica (ej: Cyberpunk, Cine Noir, Vintage 70s, Realismo Épico) acorde al sentimiento de la letra.
+- Elige una estética cinematográfica: Cyberpunk Phonk, Iluminación de Neon Noir (Cyan y Verde), cámaras agresivas.
 
 PASO 3: Genera un guion técnico.
-REGLA DE ORO 1: CONSISTENCIA. Cada "prompt" debe empezar describiendo al protagonista y el entorno para que la IA no invente personajes nuevos.
-REGLA DE ORO 2: LIP SYNC (CLAVE). Identifica las escenas donde la letra es intensa o el cantante debería estar interpretando a cámara. 
-    - Si "singing" es true, el prompt debe especificar "facing camera, singing, high detail on mouth".
-REGLA DE ORO 3: IDIOMA. Los prompts deben estar en INGLÉS técnico de cine.
+REGLA DE ORO 1: INSTRUCCIONES ESPECÍFICAS. Si el json original incluye un campo "concept", DEBES basar la descripción visual de esa escena exactamente en ese "concept".
+REGLA DE ORO 2: LIP SYNC (CLAVE). Solo las escenas donde el joven hacker canta deben tener "singing: true", e incluir en el prompt "facing camera, singing, high detail on mouth, close up shot". Las escenas de pilas DEBEN tener "singing: false".
+REGLA DE ORO 3: IDIOMA. Los prompts DEBEN estar en INGLÉS técnico de cinematografía.
+REGLA DE ORO 4: NO TEXTO. Bajo ninguna circunstancia pidas texto, letras o subtítulos renderizados dentro del video.
 
 FORMATO DE SALIDA: Devuelve estrictamente un array JSON válido, donde cada elemento sea el objeto original pero añadiendo:
-- "prompt": Instrucciones en inglés.
-- "singing": boolean indicando si canta a cámara en ese clip.
+- "prompt": Instrucciones hiper-detalladas en inglés para Veo 3.1.
+- "singing": boolean indicando si canta a cámara en ese clip (ponlo en false si muestras solo infraestructura).
 `;
 
   try {

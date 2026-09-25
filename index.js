@@ -4,6 +4,7 @@ const robots = {
   video_v3_narrativo: require('./robots/video_v3_narrativo.js'),
   video_v2_documental: require('./robots/video_v2_documental.js'),
   video_high_end: require('./robots/video_high_end.js'),
+  video_v4_phonk_assembler: require('./robots/video_v4_phonk_assembler.js'),
   lipsync: require('./robots/lipsync.js')
 }
 
@@ -21,8 +22,9 @@ Modos disponibles:
   documental   -> Anima fotos reales con FFmpeg (Ken Burns) + Karaoke.
   high_end     -> [NUEVO] Renderizado cinematográfico avanzado (Color Grading + Texturas).
   narrativo    -> [NUEVO] Usa Inteligencia Artificial para crear trama y video (Google Veo 3.1).
+  matrix_phonk -> [NUEVO] Motor de montaje hiperkinético BESS basado en Beats (Librosa + FFmpeg).
   
-Ejemplo: node index.js high_end
+Ejemplo: node index.js matrix_phonk
     `);
     process.exit(1);
   }
@@ -42,6 +44,12 @@ Ejemplo: node index.js high_end
     await robots.lipsync();
     await robots.video_v3_narrativo();
   } 
+  else if (mode === 'matrix_phonk') {
+    console.log("🎬 EJECUTANDO MODO MONTAJE MATEMÁTICO (BESS MATRIX PHONK) 🎬\n");
+    await robots.scriptwriter();
+    await robots.video_generator_v3();
+    await robots.video_v4_phonk_assembler();
+  }
   else {
     console.error(`❌ Modo desconocido: ${mode}. Usa 'documental' o 'narrativo'.`);
   }

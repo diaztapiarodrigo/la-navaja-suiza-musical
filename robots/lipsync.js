@@ -10,7 +10,9 @@ async function robot() {
   const sharedDir = fromRoot('./content/shared');
   const outputDir = fromRoot('./content/v3_narrativo');
   const scriptPath = path.join(sharedDir, 'script.json');
-  const audioPath = path.join(sharedDir, 'cancion_test.mp3');
+  const files = fs.readdirSync(sharedDir);
+  const audioFile = files.find(f => f.toLowerCase().endsWith('.wav') || f.toLowerCase().endsWith('.mp3'));
+  const audioPath = audioFile ? path.join(sharedDir, audioFile) : null;
 
   if (!fs.existsSync(scriptPath) || !fs.existsSync(audioPath)) {
     console.error('> [lipsync] ❌ Error: Faltan script.json o cancion_test.mp3.');
@@ -86,7 +88,7 @@ function extractAudioSegment(ffmpegPath, input, output, start, end) {
 
 function runWav2Lip(video, audio, output) {
   return new Promise((resolve, reject) => {
-    const wav2lipDir = path.resolve(__dirname, '../Easy-Wav2Lip');
+    const wav2lipDir = 'C:\\Users\\rodri\\Desktop\\TEST 004\\la-navaja-suiza-musical\\Easy-Wav2Lip';
     const args = [
       'run.py',
       '-video_file', video,
